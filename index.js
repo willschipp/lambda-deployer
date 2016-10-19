@@ -18,7 +18,7 @@ app.get('/',function(req,res) {
 app.use('/api',require('./api'));
 
 
-app.listen(3000,function() {
+app.listen(5000,function() {
   console.log('running...');
   if (!fs.existsSync(__dirname + '/tmp')) {
     fs.mkdirSync(__dirname + '/tmp');
