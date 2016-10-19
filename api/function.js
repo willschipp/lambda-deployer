@@ -25,9 +25,14 @@ router.post('/',function(req,res) {
               //wait 5 seconds and hit it again --> arbitrary five minues
               setTimeout(function() {
                 unirest.post(urlTemplate + req.query.functionName).send().end(function(resp) {
-                  return res.send(resp.body);
+                  // return res.send(resp.body);
+                  res.send(resp.body);
+                  //shutdown the container
+                  docker.getContainer(containerInfo.Id).stop(function(err,data) {
+                    return;
+                  });
                 });
-              },5000);
+              },3000);
             });
           }//end if
         });
