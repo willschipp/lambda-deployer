@@ -1,0 +1,30 @@
+{
+  "name": "unik-deployer",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Will Schipp <will.schipp@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "^1.1.1",
+    "font-awesome": "^4.6.3",
+    "moment": "^2.15.1",
+    "lodash": "^4.16.2",
+    "materialize": "^0.97.7",
+    "angular-ui-router": "^0.3.1",
+    "angular-moment": "^0.10.3",
+    "angular-simple-logger": "^0.1.7",
+    "ace-builds": "^1.2.5",
+    "angular-file-upload": "^2.3.4",
+    "md-steppers": "^0.3.4"
+  }
+}

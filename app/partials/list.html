@@ -1,0 +1,51 @@
+<div flex-xs layout="column">
+
+
+  <md-tabs md-dynamic-height md-border-bottom>
+
+    <md-tab label="Containers">
+      <md-content layout-padding>
+        <md-list flex>
+          <md-list-item class="md-2-line" ng-repeat="container in containers">
+            <span class="md-avatar">
+              <i class="fa fa-archive fa-2x"></i>
+            </span>
+            <div class="md-list-item-text">
+              <h4>{{container.Names[0]}} <md-button class="md-fab" ng-click="action(container)"><i class="fa fa-check"></i></md-button></h4>
+              <p>{{container.Image}}</p>
+            </div>
+            <!-- <div class="md-secondary"> -->
+              <md-button class="md-fab md-warn md-secondary" ng-click="deleteContainer(container)"><i class="fa fa-trash fa-large"></i></md-button>
+              <md-button ng-show="{{container.Status.indexOf('Up') >= 0}}" class="md-fab md-warn md-secondary" ng-click="stopContainer(container)"><i class="fa fa-stop fa-large"></i></md-button>
+              <md-button ng-show="{{container.Status.indexOf('Up') < 0}}" class="md-fab md-primary md-secondary" ng-click="runContainer(container)"><i class="fa fa-play fa-large"></i></md-button>
+            <!-- </div> -->
+          </md-list-item>
+        </md-list>
+      </md-content>
+    </md-tab>
+
+    <md-tab label="Images">
+      <md-content layout-padding>
+        <!-- <md-button class="md-raised" ng-click="reloadImages()"><i class="fa fa-refresh"></i> Refresh</md-button> -->
+        <md-list flex>
+          <md-list-item class="md-2-line" ng-repeat="image in images">
+            <span class="md-avatar">
+              <i class="fa fa-cloud-download fa-2x"></i>
+            </span>
+            <div class="md-list-item-text">
+              <h4>{{image.RepoTags[0]}}</h4>
+              <p>
+                <span ng-repeat="label in image.Labels">
+                {{label}} |
+                </span>
+              </p>
+            </div>
+            <md-button class="md-fab md-secondary md-primary" ng-click="createContainer(image.RepoTags[0])"><i class="fa fa-plus-circle fa-large"></i></md-button>
+            <md-button class="md-fab md-secondary md-warn" ng-click="deleteImage(image)"><i class="fa fa-trash fa-large"></i></md-button>
+          </md-list-item>
+        </md-list>
+      </md-content>
+    </md-tab>
+  </md-tabs>
+
+</div>
