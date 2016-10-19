@@ -19,7 +19,7 @@
     }
   </style>
 </head>
-<body ng-cloak>
+<body ng-cloak id="bodyContainer">
 
   <md-content layout-fill ng-controller="indexController">
     <md-toolbar class="md-hue-2">
@@ -43,10 +43,13 @@
       <md-content layout-margin>
         <md-list flex>
           <md-list-item>
-            <a ui-sref="home" class="md-button md-raised" style="text-align:left" flex ng-click="toggleLeft()"><i class="fa fa-plus fa-lg"></i> New Function</a>
+            <a ui-sref="home" class="md-button" style="text-align:left" flex ng-click="toggleLeft()"><i class="fa fa-home fa-lg"></i> Home</a>
           </md-list-item>
           <md-list-item>
-            <a ui-sref="list" class="md-button md-raised" style="text-align:left" flex ng-click="toggleLeft()"><i class="fa fa-list fa-lg"></i> List Functions</a>
+            <a ui-sref="newFunction" class="md-button" style="text-align:left" flex ng-click="toggleLeft()"><i class="fa fa-plus fa-lg"></i> New Function</a>
+          </md-list-item>
+          <md-list-item>
+            <a ui-sref="list" class="md-button" style="text-align:left" flex ng-click="toggleLeft()"><i class="fa fa-list fa-lg"></i> List Functions</a>
           </md-list-item>
         </md-list>
       </md-content>
@@ -77,7 +80,7 @@
 
   <script src="/js/service/listService.js"></script>
 
-  <script src="/js/controller/homeController.js"></script>
+  <script src="/js/controller/functionController.js"></script>
   <script src="/js/controller/indexController.js"></script>
   <script src="/js/controller/listController.js"></script>
 

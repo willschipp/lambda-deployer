@@ -4,8 +4,13 @@ angular.module('lambda').config(['$stateProvider','$urlRouterProvider',function(
 
   $stateProvider.state('home',{
     url:'/home',
-    templateUrl:'/partials/home.html',
-    controller:'homeController'
+    templateUrl:'/partials/home.html'
+  });
+
+  $stateProvider.state('newFunction',{
+    url:'/newFunction',
+    templateUrl:'/partials/new_function.html',
+    controller:'functionController'
   });
 
   $stateProvider.state('list',{

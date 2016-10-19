@@ -16,7 +16,7 @@ var docker = new Docker({
   port:'12375'
 });
 
-var DockerfileTemplate = 'FROM iron/node:dev\n WORKDIR /app\n ADD . /app\n RUN npm install express body-parser %%\n EXPOSE 3000\nENTRYPOINT ["node","index.js"]';
+var DockerfileTemplate = 'FROM iron/node:dev\n LABEL FaaS=true\n WORKDIR /app\n ADD . /app\n RUN npm install express body-parser %%\n EXPOSE 3000\nENTRYPOINT ["node","index.js"]';
 var functionJs = 'var exports = module.exports = {}; exports.execute = function(req) { return new Promise(function(fulfill,reject) { fulfill(%%(req.body)); }); }'
 var codeJs = 'var router = require("express").Router(); var func = require("./function"); router.post("/",function(req,res) { func.execute(req).then(function(resp) { return res.send(resp); },function(err) { console.log(err); return res.sendStatus(500); }); }); module.exports = router;';
 var indexJs = 'var express = require("express"); var app = express(); app.use(require("body-parser").json()); app.use("/",require("./code")); app.listen(3000,function() { console.log("running"); }); ';
@@ -76,9 +76,22 @@ router.delete('/container/:id',function(req,res) {
 });
 
 
+router.delete('/image/:id',function(req,res) {
+  var image = docker.getImage(req.params.id);
+  //destroy
+  image.remove(function(err,data) {
+    if (err) {
+      console.log(err);
+      return res.sendStatus(500);
+    }//end if
+    return res.sendStatus(200);
+  });
+});
+
 router.post('/container',function(req,res) {
   //build a simple container and run it
-  docker.createContainer({Image:req.body.appName,name:req.body.appName,ExposedPorts:{"3000":{}},Hostname:req.body.appName + '.weave.local'},function(err,container) {
+  // docker.createContainer({Image:req.body.appName,name:req.body.appName,ExposedPorts:{"3000":{}},Hostname:req.body.appName + '.weave.local'},function(err,container) {
+  docker.createContainer({Image:req.body.appName,name:req.body.appName,Labels:{"FaaS":"true"}},function(err,container) {
     if (err) {
       console.log(err);
       return res.sendStatus(500);
@@ -140,7 +153,7 @@ router.post('/build',function(req,res) {
           var write = fs.createWriteStream('/tmp/' + req.body.appName + '.tar');
           var packer = tar.Pack({fromBase:true}).on('end',function() {
             //now submit the file to dockerode to build
-            docker.buildImage('/tmp/' + req.body.appName + '.tar',{t:req.body.appName},function(err,resp){
+            docker.buildImage('/tmp/' + req.body.appName + '.tar',{t:req.body.appName,labels:"faas"},function(err,resp){
               if (err) {
                 console.log(err);
                 return res.sendStatus(500);

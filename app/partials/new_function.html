@@ -1,0 +1,105 @@
+
+  <!-- content -->
+  <div flex-xs layout="column">
+
+    <md-card>
+      <!-- <md-card-content> -->
+      <md-stepper-card-content>
+
+        <md-whiteframe class="md-whiteframe-1dp">
+          <md-steppers md-dynamic-height md-disable-tabs-behavior="true" md-stretch-steppers="always" md-selected="selectedStep">
+            <md-step label="Step 1" md-complete="step1.completed"  ng-disabled="step1.disabled">
+              <md-step-body>
+                <form ng-submit="captureApplicationName()">
+                  <md-content flex layout-padding>
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Application Function Name</label>
+                      <input ng-model="appConfig.appName">
+                    </md-input-container>
+                  </md-content>
+                  <md-step-actions layout="row" layout-align="end center">
+                    <md-button type="submit" class="md-raised md-primary">Next</md-button>
+                  </md-step-actions>
+                </form>
+              </md-step-body>
+            </md-step>
+
+            <md-step label="Step 2" md-complete="step2.completed"  ng-disabled="step2.disabled">
+              <md-step-body>
+                <form ng-submit="captureType()">
+                  <md-content flex layout-padding>
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Application Language</label>
+                      <md-select ng-model="appConfig.type">
+                        <md-option value="nodejs">NodeJS</md-option>
+                        <md-option value="java">Java</md-option>
+                      </md-select>
+                    </md-input-container>
+                  </md-content>
+                  <md-step-actions layout="row" layout-align="end center">
+                    <md-button type="submit" class="md-raised md-primary">Next</md-button>
+                  </md-step-actions>
+                </form>
+              </md-step-body>
+            </md-step>
+
+            <md-step label="Step 3" md-complete="step3.completed" ng-disabled="step3.disabled">
+              <md-step-body>
+                <form ng-submit="captureCode()">
+                  <md-content flex layout-padding>
+                    <div id="editor">function doSomething(payload) {
+                      var h = "hiya";
+                      return h;
+                    }</div>
+                  </md-content>
+                  <md-step-actions layout="row" layout-align="end center">
+                    <md-button type="submit" class="md-raised md-primary">Next</md-button>
+                  </md-step-actions>
+                </form>
+              </md-step-body>
+            </md-step>
+
+            <md-step label="Step 4" md-complete="step4.completed" ng-disabled="step4.disabled">
+              <md-step-body>
+                <form ng-submit="captureDependencies()">
+                  <md-content flex layout-padding>
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Enter space delimited list of node dependencies to be installed</label>
+                      <textarea ng-model="appConfig.dependencies" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                    </md-input-container>
+                  </md-content>
+                  <md-step-actions layout="row" layout-align="end center">
+                    <md-button type="submit" class="md-raised md-primary">Next</md-button>
+                  </md-step-actions>
+                </form>
+              </md-step-body>
+            </md-step>
+
+            <md-step label="Finish" md-complete="step5.completed" ng-disabled="step5.disabled">
+              <md-step-body>
+                <form ng-submit="buildApp($ev)">
+                  <md-content flex layout-padding>
+                    <md-list flex>
+                      <md-subheader class="md-no-sticky">Service Configuration</md-subheader>
+                      <md-list-item class="md-2-line" ng-repeat="(key,value) in appConfig">
+                        <div class="md-list-item-text">
+                          <h3>{{key}}</h3>
+                          <p>{{value}}</p>
+                        </div>
+                      </md-list-item>
+                    </md-list>
+                    <md-button type="submit" class="md-raised md-primary">Push</md-button>
+                  </md-content>
+                </form>
+              </md-step-body>
+            </md-step>
+
+          </md-steppers>
+        </md-whiteframe>
+
+
+      </md-stepper-card-content>
+    </md-card>
+
+
+  </div>
