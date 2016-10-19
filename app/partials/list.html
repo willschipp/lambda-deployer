@@ -5,7 +5,13 @@
 
     <md-tab label="Containers">
       <md-content layout-padding>
-        <md-button ng-click="refresh()"><md-icon md-font-set="material-icons" >refresh</md-icon> Refresh</md-button>
+        <!-- <div  layout="row" layout-sm="column" layout-align="space-around">
+
+        </div> -->
+        <div layout="row" flex>
+          <md-button ng-click="refresh()"><md-icon md-font-set="material-icons" >refresh</md-icon> Refresh</md-button>
+          <md-progress-linear ng-show="progress()" md-mode="indeterminate"></md-progress-linear>
+        </div>
         <md-divider></md-divider>
         <md-list flex>
           <md-list-item class="md-2-line" ng-repeat="container in containers">

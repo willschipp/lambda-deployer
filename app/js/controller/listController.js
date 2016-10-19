@@ -2,11 +2,15 @@ angular.module('lambda').controller('listController',['$scope','listService','$h
 
   $scope.images = listService.images;
   $scope.containers = listService.containers;
+  $scope.loading = false;
 
   $scope.refresh = function() {
     return reload();
   }
 
+  $scope.progress = function() {
+    return $scope.loading;
+  }
 
   function reload() {
     return listService.getContainers().then(function(result) {
@@ -125,10 +129,14 @@ angular.module('lambda').controller('listController',['$scope','listService','$h
 
   $scope.action = function(container,ev) {
 
+    $scope.loading = true;
+
     console.log(container.Names[0].substring(1));
     return $http({method:'POST',url:'/api/function?functionName=' + container.Names[0].substring(1)}).then(function(resp) {
 
-      var confirm = $mdDialog.confirm().title('Actioned')
+      $scope.loading = false;
+
+      var confirm = $mdDialog.confirm().title('Result')
               .textContent(resp.data)
               .ariaLabel('ok')
               .targetEvent(ev)

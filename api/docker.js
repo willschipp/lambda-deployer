@@ -53,7 +53,7 @@ router.post('/container/:id/start',function(req,res) {
 router.put('/container/:id/stop',function(req,res) {
   var container = docker.getContainer(req.params.id);
   container.stop(function(err,data) {
-    console.log(data);
+    // console.log(data);
     return res.sendStatus(200);
   });
 });
@@ -61,7 +61,7 @@ router.put('/container/:id/stop',function(req,res) {
 router.put('/container/:id/start',function(req,res) {
   var container = docker.getContainer(req.params.id);
   container.stop(function(err,data) {
-    console.log(data);
+    // console.log(data);
     return res.sendStatus(200);
   });
 });
@@ -70,7 +70,7 @@ router.delete('/container/:id',function(req,res) {
   var container = docker.getContainer(req.params.id);
   //get the image name
   container.remove(function(err,data) {
-    console.log(data);
+    // console.log(data);
     return res.sendStatus(200);
   });
 });
@@ -187,26 +187,3 @@ function buildFunctionJs(rawFunction) {
 
 
 module.exports = router;
-
-/*
-
-  //create a read stream from the source directory
-  // //write it to a temp location
-  var write = fs.createWriteStream('/tmp/test-app.tar');
-  // //create
-  // read.pipe(write);
-  var packer = tar.Pack({fromBase:true}).on('end',function() {
-    //now submit the file to dockerode to build
-    docker.buildImage('/tmp/test-app.tar',{t:req.body.appName},function(err,resp){
-      if (err) {
-        console.log(err);
-        return res.sendStatus(500);
-      }//end if
-      return res.sendStatus(201);
-    });
-  });
-
-  fstream.Reader({path:'/tmp/test-app',type:'Directory'})
-  .pipe(packer)
-  .pipe(write);
-*/
